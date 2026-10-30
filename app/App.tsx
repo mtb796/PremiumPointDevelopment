@@ -8,8 +8,9 @@ import { Analysis } from "./components/Analysis.js";
 import { Tracker } from "./components/Tracker.js";
 import { Verdict } from "./components/Verdict.js";
 import { InvestorPackage } from "./components/InvestorPackage.js";
+import { SiteView } from "./components/SiteView.js";
 
-type Tab = "report" | "verdict" | "analysis" | "tracker" | "package";
+type Tab = "site" | "report" | "verdict" | "analysis" | "tracker" | "package";
 
 const DISCLOSURE =
   "Illustrative only. Sample assumptions. Not an offer to sell or a solicitation of an offer to buy any security. Not affiliated with Premium Point.";
@@ -72,6 +73,9 @@ export function App() {
 
         <main className="col-output">
           <nav className="tabs">
+            <button className={tab === "site" ? "on" : ""} onClick={() => setTab("site")}>
+              Site
+            </button>
             <button className={tab === "report" ? "on" : ""} onClick={() => setTab("report")}>
               Pro forma
             </button>
@@ -94,6 +98,7 @@ export function App() {
               <strong>cannot calculate</strong> {error}
             </div>
           )}
+          {tab === "site" && <SiteView />}
           {result && tab === "report" && <Results result={result} />}
           {tab === "verdict" && <Verdict deal={deal} />}
           {result && tab === "analysis" && <Analysis deal={deal} />}
