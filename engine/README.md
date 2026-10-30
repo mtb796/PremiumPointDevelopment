@@ -82,5 +82,6 @@ the GP until cumulative promote equals its promote share of cumulative profit; a
 where `p` is the promote share. Every month's payments must sum to distributable cash
 exactly.
 
-> The waterfall module is built in the next step of the build order (Friday night /
-> Saturday morning). This section is the spec it is tested against.
+> Implemented in `engine/waterfall/waterfall.ts`; this section is the spec it is tested
+> against (`tests/waterfall.test.ts`). The capital stack that feeds it (senior,
+> mezzanine, preferred equity, balloon takeout) is in `engine/debt/stack.ts`.

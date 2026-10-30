@@ -25,6 +25,15 @@ handoff. Current state:
 - **Foundations (Friday evening):** repo + TypeScript + Vitest, `engine/types.ts`,
   the engine conventions README, the Aprao reference-deal fixture, reference tests
   written first, and the monthly pro forma + senior loan with reserve solver.
+- **Debt & waterfall (Friday night → Saturday morning):** multi-tranche capital
+  stack (senior, mezzanine, preferred equity) with sizing, funding order, balloon
+  takeout; the configurable distribution waterfall (tiers, GP catch-up, clawback);
+  the modular override comparison; and a hand-built structured reference deal whose
+  project IRR is checked against an independent reconstruction.
+
+Engine tests: pro forma, senior debt, waterfall, multi-tranche stack, edge cases
+(preferred on/off, PIK vs current-pay mezz, no mezz, zero promote), the balloon
+takeout, and the circularity solver (convergence + forced non-convergence).
 
 See [`docs/aprao-reconciliation.md`](docs/aprao-reconciliation.md) for exactly where
 the engine lands against each Aprao target and the reasoning behind the model
