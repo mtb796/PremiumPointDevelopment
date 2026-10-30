@@ -5,13 +5,24 @@
   "type": "module",
   "description": "Address-to-decision development underwriting app. Portfolio piece. Not affiliated with Premium Point; all sample numbers are labeled sample data.",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.app.json"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "typescript": "5.6.3",
+    "vite": "^5.4.11",
     "vitest": "2.1.9"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
