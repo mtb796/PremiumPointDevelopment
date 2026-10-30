@@ -7,8 +7,9 @@ import { Results } from "./components/Results.js";
 import { Analysis } from "./components/Analysis.js";
 import { Tracker } from "./components/Tracker.js";
 import { Verdict } from "./components/Verdict.js";
+import { InvestorPackage } from "./components/InvestorPackage.js";
 
-type Tab = "report" | "verdict" | "analysis" | "tracker";
+type Tab = "report" | "verdict" | "analysis" | "tracker" | "package";
 
 const DISCLOSURE =
   "Illustrative only. Sample assumptions. Not an offer to sell or a solicitation of an offer to buy any security. Not affiliated with Premium Point.";
@@ -83,6 +84,9 @@ export function App() {
             <button className={tab === "tracker" ? "on" : ""} onClick={() => setTab("tracker")}>
               Tracker
             </button>
+            <button className={tab === "package" ? "on" : ""} onClick={() => setTab("package")}>
+              Investor package
+            </button>
           </nav>
 
           {error && (
@@ -94,6 +98,7 @@ export function App() {
           {tab === "verdict" && <Verdict deal={deal} />}
           {result && tab === "analysis" && <Analysis deal={deal} />}
           {tab === "tracker" && <Tracker deal={deal} />}
+          {result && tab === "package" && <InvestorPackage deal={deal} result={result} />}
         </main>
       </div>
 

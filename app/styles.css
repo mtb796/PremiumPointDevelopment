@@ -123,3 +123,30 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 8px 0; }
 .tbl tr.win-r td { background: rgba(55, 200, 168, 0.14); font-weight: 700; }
 
 .disclosure { margin-top: 20px; padding: 14px; color: var(--muted); font-size: 11px; text-align: center; border-top: 1px solid var(--line); }
+
+/* Investor package */
+.package-actions { display: flex; gap: 10px; margin-bottom: 14px; }
+.package-actions button { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 14px; cursor: pointer; font: inherit; }
+.slide { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; margin-bottom: 16px; position: relative; min-height: 220px; }
+.slide h1 { margin: 0 0 2px; font-size: 24px; }
+.slide h2 { margin: 0 0 10px; font-size: 18px; }
+.slide h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin: 0 0 6px; }
+.teaser-sub { color: var(--muted); margin: 0 0 16px; }
+.teaser-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
+.slide-footer { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+.pending { color: var(--muted); font-size: 13px; background: var(--panel-2); border: 1px dashed var(--line); border-radius: 8px; padding: 10px 12px; }
+.checklist { list-style: none; padding: 0; margin: 0; columns: 2; }
+.checklist li { padding: 5px 0; display: flex; align-items: center; gap: 8px; }
+.checklist .box { width: 13px; height: 13px; border: 1px solid var(--muted); border-radius: 3px; display: inline-block; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  .no-print, .top, .col-inputs, .tabs, .disclosure { display: none !important; }
+  .app, .layout, .col-output { display: block; max-width: none; margin: 0; padding: 0; }
+  .slide { border: 0; border-radius: 0; background: #fff; color: #000; page-break-after: always; break-after: page; min-height: 0; padding: 0.5in; }
+  .slide:last-child { page-break-after: auto; }
+  .slide-footer { color: #555; }
+  .kv .k { color: #333; } .kv .v { color: #000; }
+  .tbl th, .tbl td { color: #000; border-color: #ccc; }
+  @page { size: letter; margin: 0; }
+}
