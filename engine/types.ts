@@ -188,6 +188,16 @@ export interface Tranche {
    * from cash flow. "accrued" tranches roll up the whole time.
    */
   capitalizeUntil?: "stabilization" | "construction-end" | "never";
+  /** Takeout loan sizing used when this tranche matures before exit (convention 10). */
+  takeout?: {
+    ltv?: Pct; // loan-to-value cap on the refinance appraisal (value = fwd-12 NOI / cap)
+    minDebtYield?: Rate; // NOI / takeout loan >= this
+    minDscr?: number; // NOI / annual debt service >= this
+    rate?: Rate; // takeout coupon; defaults to this tranche's rate
+    capRate?: Rate; // appraisal cap rate for the value; defaults to the deal exit cap
+  };
+  /** Preferred-equity-only: accrued pref return floor as a minimum equity multiple at exit. */
+  minMultiple?: number;
 }
 
 export interface EquityTerms {
@@ -356,8 +366,35 @@ export interface Returns {
   debtYield?: Rate;
 }
 
+export interface TrancheMonthly {
+  month: Month;
+  open: Money;
+  draw: Money; // principal drawn for cost this month
+  capitalizedInterest: Money;
+  currentInterest: Money;
+  repaid: Money; // principal repaid this month (excludes fees)
+  close: Money;
+}
+
+export interface TrancheResult {
+  kind: TrancheKind;
+  label: string;
+  commitment: Money;
+  rate: Rate;
+  originationFee: Money;
+  exitFee: Money;
+  capitalizedInterestTotal: Money;
+  currentInterestTotal: Money;
+  principalDrawn: Money; // cost draws (excludes capitalized interest)
+  exitBalance: Money; // balance repaid at exit
+  monthly: TrancheMonthly[];
+  /** Set when this tranche matured before exit and was taken out (convention 10). */
+  takeout?: { month: Month; size: Money; shortfall: Money };
+}
+
 export interface Result {
   monthly: MonthlyRow[];
+  tranches: TrancheResult[];
   sourcesUses: SourcesUses;
   costSummary: {
     land: Money;
