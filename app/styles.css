@@ -106,4 +106,20 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 8px 0; }
 .flag.error { background: rgba(229, 96, 77, 0.14); border: 1px solid rgba(229, 96, 77, 0.45); color: #ffd9d3; }
 .flag.info { background: rgba(79, 140, 255, 0.12); border: 1px solid rgba(79, 140, 255, 0.35); }
 
+.top-actions { display: flex; align-items: center; gap: 10px; }
+.plan-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.plan-toggle button { background: var(--panel-2); color: var(--muted); border: 0; padding: 8px 12px; cursor: pointer; font: inherit; }
+.plan-toggle button.on { background: var(--accent-2); color: #06201a; font-weight: 700; }
+
+.card-h select { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 7px; padding: 4px 8px; font-size: 12px; }
+
+.verdict { border-radius: 10px; padding: 12px 14px; border: 1px solid var(--line); }
+.verdict.sell { background: rgba(55, 200, 168, 0.1); border-color: rgba(55, 200, 168, 0.4); }
+.verdict.hold { background: rgba(79, 140, 255, 0.1); border-color: rgba(79, 140, 255, 0.4); }
+.verdict strong { font-size: 16px; }
+.verdict p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+.tbl tr.win td { background: rgba(79, 140, 255, 0.14); font-weight: 700; }
+.tbl tr.win-r td { background: rgba(55, 200, 168, 0.14); font-weight: 700; }
+
 .disclosure { margin-top: 20px; padding: 14px; color: var(--muted); font-size: 11px; text-align: center; border-top: 1px solid var(--line); }

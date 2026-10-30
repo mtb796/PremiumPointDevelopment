@@ -261,6 +261,31 @@ export interface Exit {
   sellingCostPct: Pct; // disposition costs as a fraction of gross value
 }
 
+/** Business plan for the deal (handoff one-page flow: hold vs. sell). */
+export type BusinessPlan = "hold" | "sell";
+
+/**
+ * Build-to-sell terms. Two modes:
+ *   - "units": for-sale units (condo / townhome) sold over an absorption period
+ *     starting at delivery.
+ *   - "bulk": a single bulk sale of the finished building at delivery.
+ */
+export interface ForSale {
+  mode: "units" | "bulk";
+  /** When sales begin. Default: construction completion ("delivery"). */
+  salesStart?: Month;
+  sellingCostPct: Pct;
+  // units mode:
+  pricePerUnit?: Money; // or pricePerSf (of net SF) if pricePerUnit is absent
+  pricePerSf?: Money;
+  absorptionUnitsPerMonth?: number;
+  /** Optional annual appreciation on for-sale prices during absorption (default 0). */
+  priceGrowth?: Rate;
+  // bulk mode:
+  bulkPrice?: Money; // or bulkPricePerSf (of net SF)
+  bulkPricePerSf?: Money;
+}
+
 // ---------------------------------------------------------------------------
 // Phasing & modular (used by later modules; optional for the reference deal)
 // ---------------------------------------------------------------------------
@@ -300,6 +325,10 @@ export interface Deal {
   waterfall?: WaterfallTerms;
   exit: Exit;
   modular?: ModularOverrides;
+  /** Business plan. Defaults to "hold" (operate then sell at an exit cap). */
+  businessPlan?: BusinessPlan;
+  /** Required when businessPlan is "sell". */
+  forSale?: ForSale;
 }
 
 // ---------------------------------------------------------------------------

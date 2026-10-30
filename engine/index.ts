@@ -14,7 +14,8 @@ import { computeNonFinanceCosts } from "./proforma/costs.js";
 import { spendWeights } from "./proforma/spend.js";
 import { forward12Noi, stabilizedNoiYear1 as computeStabilizedNoi } from "./proforma/operations.js";
 import { NonConvergenceError, solveTotalCost } from "./solve.js";
-import { simulateStack, type StackContext } from "./debt/stack.js";
+import { simulateStack, type StackContext, type StackResult } from "./debt/stack.js";
+import { simulateSell } from "./debt/sell.js";
 import { runWaterfall } from "./waterfall/waterfall.js";
 import { componentBreakdown } from "./proforma/components.js";
 
@@ -30,24 +31,31 @@ export function runDeal(deal: Deal): Result {
   const hardSoftSpend: number[] = new Array<number>(exitMonth + 1).fill(0);
   for (let i = 0; i < nConstruction; i++) hardSoftSpend[cStart + i] = constructionTotal * weights[i]!;
 
-  const f12 = forward12Noi(deal, exitMonth);
-  const noiY1 = computeStabilizedNoi(deal);
+  const isSell = deal.businessPlan === "sell";
 
-  const grossValue = f12 / deal.exit.exitCapRate;
-  const sellingCosts = grossValue * deal.exit.sellingCostPct;
-  const netProceeds = grossValue - sellingCosts;
+  // Hold exit value (convention 9). Unused for the sell path.
+  const f12 = isSell ? 0 : forward12Noi(deal, exitMonth);
+  const noiY1 = isSell ? 0 : computeStabilizedNoi(deal);
+  const holdGrossValue = isSell ? 0 : f12 / deal.exit.exitCapRate;
+  const holdSellingCosts = holdGrossValue * deal.exit.sellingCostPct;
 
-  const ctx: StackContext = { deal, nf, hardSoftSpend, grossValue, sellingCosts, stabilizedNoiYear1: noiY1 };
+  const ctx: StackContext = {
+    deal,
+    nf,
+    hardSoftSpend,
+    grossValue: holdGrossValue,
+    sellingCosts: holdSellingCosts,
+    stabilizedNoiYear1: noiY1,
+  };
+  const simulate = (tc: number): StackResult =>
+    isSell ? simulateSell(deal, hardSoftSpend, tc) : simulateStack(ctx, tc);
 
   // ---- Circularity solve (convention 7): total cost includes finance cost. ----
   let totalCost: Money;
-  let sim: ReturnType<typeof simulateStack>;
+  let sim: StackResult;
   try {
-    totalCost = solveTotalCost(nf.total, (tc) => {
-      const s = simulateStack(ctx, tc);
-      return nf.total + s.capitalizedInterestTotal + s.originationFeeTotal + s.exitFeeTotal;
-    });
-    sim = simulateStack(ctx, totalCost);
+    totalCost = solveTotalCost(nf.total, (tc) => nf.total + simulate(tc).financeCost);
+    sim = simulate(totalCost);
   } catch (e) {
     if (e instanceof NonConvergenceError) {
       flags.push({ level: "error", code: "non-convergence", message: e.message });
@@ -56,7 +64,12 @@ export function runDeal(deal: Deal): Result {
   }
   flags.push(...sim.flags);
 
-  const financeCost = sim.capitalizedInterestTotal + sim.originationFeeTotal + sim.exitFeeTotal;
+  const financeCost = sim.financeCost;
+
+  // ---- Exit / disposition summary (hold: cap-rate sale; sell: aggregated sales). ----
+  const grossValue = isSell ? sim.rows.reduce((a, r) => a + r.saleGrossProceeds, 0) : holdGrossValue;
+  const sellingCosts = isSell ? sim.rows.reduce((a, r) => a + r.sellingCosts, 0) : holdSellingCosts;
+  const netProceeds = grossValue - sellingCosts;
 
   // ---- Cash-flow series. ----
   const unlevered = sim.rows.map((r) => r.unleveredCashFlow);
@@ -135,8 +148,11 @@ export function runDeal(deal: Deal): Result {
     totalSources: sources.reduce((a, s) => a + s.amount, 0),
   };
 
-  // Exit debt payoff (principal + exit fees across tranches).
-  const debtPayoff = sim.tranches.reduce((a, t) => a + t.exitBalance + t.exitFee, 0);
+  // Exit debt payoff. Hold: principal + exit fees repaid at the cap-rate sale. Sell:
+  // debt is repaid from sales during the sellout, so only any residual balance remains.
+  const debtPayoff = isSell
+    ? sim.tranches.reduce((a, t) => a + t.exitBalance, 0)
+    : sim.tranches.reduce((a, t) => a + t.exitBalance + t.exitFee, 0);
 
   return {
     monthly: sim.rows,

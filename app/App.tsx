@@ -6,8 +6,9 @@ import { Inputs } from "./components/Inputs.js";
 import { Results } from "./components/Results.js";
 import { Analysis } from "./components/Analysis.js";
 import { Tracker } from "./components/Tracker.js";
+import { Verdict } from "./components/Verdict.js";
 
-type Tab = "report" | "analysis" | "tracker";
+type Tab = "report" | "verdict" | "analysis" | "tracker";
 
 const DISCLOSURE =
   "Illustrative only. Sample assumptions. Not an offer to sell or a solicitation of an offer to buy any security. Not affiliated with Premium Point.";
@@ -33,6 +34,20 @@ export function App() {
           <p className="sub">Address → program → capital stack → returns. Development underwriting (sample).</p>
         </div>
         <div className="top-actions">
+          <div className="plan-toggle">
+            <button
+              className={deal.businessPlan !== "sell" ? "on" : ""}
+              onClick={() => setDeal({ ...deal, businessPlan: "hold" })}
+            >
+              Hold &amp; rent
+            </button>
+            <button
+              className={deal.businessPlan === "sell" ? "on" : ""}
+              onClick={() => setDeal({ ...deal, businessPlan: "sell" })}
+            >
+              Build to sell
+            </button>
+          </div>
           <select
             onChange={(e) => {
               const p = presets[Number(e.target.value)];
@@ -59,6 +74,9 @@ export function App() {
             <button className={tab === "report" ? "on" : ""} onClick={() => setTab("report")}>
               Pro forma
             </button>
+            <button className={tab === "verdict" ? "on" : ""} onClick={() => setTab("verdict")}>
+              Hold vs sell
+            </button>
             <button className={tab === "analysis" ? "on" : ""} onClick={() => setTab("analysis")}>
               Sensitivity
             </button>
@@ -73,6 +91,7 @@ export function App() {
             </div>
           )}
           {result && tab === "report" && <Results result={result} />}
+          {tab === "verdict" && <Verdict deal={deal} />}
           {result && tab === "analysis" && <Analysis deal={deal} />}
           {tab === "tracker" && <Tracker deal={deal} />}
         </main>

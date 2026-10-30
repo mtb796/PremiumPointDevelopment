@@ -39,6 +39,11 @@ handoff. Current state:
   critical path by CPM (earliest/latest/slack), slip alerts, and the link that
   maps anchor milestones onto the pro forma schedule — so moving a milestone
   re-runs the model and the IRR change matches a manual rerun.
+- **Build-to-sell + hold-vs-sell verdict:** a sell business plan (for-sale units
+  over an absorption period, or a bulk sale at delivery) with debt repaid from
+  sales and carry while unsold; and the one-page verdict that compares hold vs
+  sell under three investor objectives (return speed / total profit /
+  risk-adjusted) with the for-sale-price crossover.
 
 Engine tests: pro forma, senior debt, waterfall, multi-tranche stack, edge cases
 (preferred on/off, PIK vs current-pay mezz, no mezz, zero promote), the balloon

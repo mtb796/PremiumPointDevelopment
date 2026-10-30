@@ -44,9 +44,12 @@ export interface StackResult {
   equityContributions: number[];
   /** Cash distributable to the equity class each month (operating surplus + exit residual), >= 0. */
   distributable: number[];
+  /** Capitalized interest in the development budget (interest reserve), for sources=uses. */
   capitalizedInterestTotal: Money;
   originationFeeTotal: Money;
   exitFeeTotal: Money;
+  /** Total finance cost for the cost summary (capitalized interest + carry + fees). */
+  financeCost: Money;
   equityContributedTotal: Money;
   /** Equity used to fund development cost only (for the sources=uses identity). */
   equityForCostTotal: Money;
@@ -334,6 +337,10 @@ export function simulateStack(ctx: StackContext, totalCost: Money): StackResult 
     capitalizedInterestTotal: states.reduce((a, s) => a + s.capInt, 0),
     originationFeeTotal: states.reduce((a, s) => a + s.originationFee, 0),
     exitFeeTotal: states.reduce((a, s) => a + s.exitFee, 0),
+    financeCost:
+      states.reduce((a, s) => a + s.capInt, 0) +
+      states.reduce((a, s) => a + s.originationFee, 0) +
+      states.reduce((a, s) => a + s.exitFee, 0),
     equityContributedTotal,
     equityForCostTotal,
     peakEquity,

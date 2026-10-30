@@ -4,7 +4,10 @@ import { apraoDeal } from "../data/golden-deals/aprao.js";
 
 /** Starting deal for the UI — a copy of the structured sample so edits don't mutate the fixture. */
 export function defaultDeal(): Deal {
-  return structuredClone(structuredDeal);
+  const d = structuredClone(structuredDeal);
+  // Sample for-sale config so the hold-vs-sell verdict can run out of the box.
+  d.forSale = { mode: "units", pricePerSf: 650, absorptionUnitsPerMonth: 12, sellingCostPct: 0.05 };
+  return d;
 }
 
 export const presets: { label: string; make: () => Deal }[] = [
