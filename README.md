@@ -44,6 +44,17 @@ handoff. Current state:
   sales and carry while unsold; and the one-page verdict that compares hold vs
   sell under three investor objectives (return speed / total profit /
   risk-adjusted) with the for-sale-price crossover.
+- **Max-buildable engine:** given a parcel and a district's dimensional
+  standards, the minimum across coverage / height / FAR / density / parking /
+  open space, the binding + runner-up constraint, by-right vs plan-based, and
+  bonus cases. A `not-found`/`needs-reading` value **blocks** the result — no
+  default is ever substituted.
+- **Ordinance source reader logic:** the quote-check (a value is accepted only
+  if its number appears in the quoted source text), not-found handling that
+  blocks dependents, computed values shown with a formula, provenance for
+  person-entered/corrected values, and a version diff. The app never generates a
+  zoning value; `rules/*.json` ship unverified with every value `needs-reading`
+  pending the ordinance PDFs in `docs/sources/`.
 
 Engine tests: pro forma, senior debt, waterfall, multi-tranche stack, edge cases
 (preferred on/off, PIK vs current-pay mezz, no mezz, zero promote), the balloon

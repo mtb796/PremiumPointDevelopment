@@ -1,0 +1,29 @@
+{
+  "_comment": "SCAFFOLD ONLY. verified:false. Every standard is 'needs-reading' with no numeric value: the ordinance source reader must read these from the supplied Fairfax adopted zMOD ordinance PDF (annotated March 2021, effective 2021-07-01) in docs/sources/, copy each value with its exact quoted source line, and a person must verify it against the county's CURRENT code (this text predates later amendments). No zoning value is hand-typed or model-generated here. Until read and verified, dependent max-buildable results are blocked.",
+  "jurisdiction": "Fairfax County, VA",
+  "verified": false,
+  "ordinance": { "name": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "annotated": "2021-03", "sourcePdf": "docs/sources/fairfax-zmod-2021.pdf", "status": "PDF not yet supplied; predates later amendments" },
+  "districts": {
+    "R-30": {
+      "name": "R-30",
+      "permittedUses": ["multifamily"],
+      "byRight": {
+        "maxDensityDuAc": { "status": "needs-reading", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2", "page": "180", "quote": "" }, "note": "handoff index: 30 units per acre — read and verify" },
+        "minOpenSpacePct": { "status": "needs-reading", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2", "page": "180", "quote": "" }, "note": "handoff index: 40% open space — read and verify" },
+        "maxHeightFt": { "status": "needs-reading", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2", "page": "180", "quote": "" }, "note": "handoff index: 150 ft subject to Board increase (quote the Board condition verbatim; do not turn it into a number)" }
+      }
+    },
+    "PRM": {
+      "name": "PRM (planned residential mixed-use)",
+      "permittedUses": ["multifamily", "retail", "office"],
+      "byRight": {},
+      "planBased": {
+        "maxFar": { "status": "needs-reading", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2 (PRM)", "page": "125", "quote": "" }, "note": "handoff index: FAR 3.0, up to 5.0 in designated areas if the plan implements the Comprehensive Plan — read and verify" },
+        "minOpenSpacePct": { "status": "needs-reading", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2 (PRM)", "page": "126", "quote": "" }, "note": "handoff index: 20% open space — read and verify" }
+      },
+      "notes": [
+        { "text": "At least 50% of floor area must be multifamily to allow secondary uses (quote verbatim once read).", "citation": { "ordinance": "Fairfax County Zoning Ordinance (zMOD)", "effectiveDate": "2021-07-01", "section": "Article 2 (PRM)", "page": "126", "quote": "" } }
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "_comment": "SCAFFOLD ONLY. verified:false. Every standard is 'needs-reading' with no numeric value: the ordinance source reader must read these from the supplied Arlington Zoning Ordinance PDF (effective 2025-01-28) in docs/sources/, copy each value with its exact quoted source line, and a person must verify it. No zoning value is hand-typed or model-generated here. Section/page references are from the handoff's hand-extracted index and locate where the reader should look; they are NOT the values. Until a value is read and verified, any max-buildable result that depends on it is blocked ('cannot calculate: value not found in source').",
+  "jurisdiction": "Arlington County, VA",
+  "verified": false,
+  "ordinance": { "name": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "sourcePdf": "docs/sources/arlington-zoning-2025-01-28.pdf", "status": "PDF not yet supplied" },
+  "districts": {
+    "RA8-18": {
+      "name": "RA8-18",
+      "permittedUses": ["multifamily"],
+      "byRight": {
+        "minLotSf": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-9", "quote": "" }, "note": "pending source PDF read" },
+        "maxDensityDuAc": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-9", "quote": "" }, "note": "handoff index: ~1,200 sq ft of lot per unit (compute du/ac via formula once the lot-per-unit value is read)" },
+        "maxHeightFt": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-9", "quote": "" }, "note": "pending source PDF read" },
+        "maxStories": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-9", "quote": "" }, "note": "pending source PDF read" }
+      },
+      "planBased": {
+        "maxStories": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-10", "quote": "" }, "note": "site plan: up to 8 stories / 75 ft; 20+ acres up to 10 stories / 95 ft — read and verify" }
+      },
+      "notes": [
+        { "text": "Prose condition to quote verbatim once read, never turned into a number.", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§6.3", "page": "6-10", "quote": "" } }
+      ]
+    },
+    "C-O": {
+      "name": "C-O",
+      "permittedUses": ["multifamily", "office", "hotel"],
+      "byRight": {
+        "maxFar": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§7.13", "page": "7-38", "quote": "" }, "note": "by-right FAR 0.4/0.5/0.6 by site area — read and verify" }
+      },
+      "planBased": {
+        "maxFar": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§7.13", "page": "7-38", "quote": "" }, "note": "site plan: multifamily FAR 4.8, 180 ft — read and verify" },
+        "maxHeightFt": { "status": "needs-reading", "citation": { "ordinance": "Arlington County Zoning Ordinance", "effectiveDate": "2025-01-28", "section": "§7.13", "page": "7-38", "quote": "" }, "note": "pending source PDF read" }
+      }
+    }
+  }
+}
