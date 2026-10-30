@@ -1,0 +1,43 @@
+{
+  "_comment": "Registry of jurisdictions and their public data endpoints. A jurisdiction appears in the app only when verified:true in its rule table (rules/<slug>.json) and its endpoints and layers have been confirmed. Field names and URLs are recorded with the date last checked. No zoning value is ever stored here; rule values live in the per-jurisdiction rule tables produced by the ordinance source reader.",
+  "jurisdictions": [
+    {
+      "slug": "arlington-va",
+      "name": "Arlington County, VA",
+      "ruleTable": "rules/arlington-va.json",
+      "verified": false,
+      "ordinance": {
+        "name": "Arlington County Zoning Ordinance",
+        "effective_date": "2025-01-28",
+        "source_pdf": "docs/sources/arlington-zoning-2025-01-28.pdf",
+        "status": "PDF not yet supplied to repo; see docs/sources/README.md"
+      },
+      "endpoints": {
+        "parcels": { "url": null, "fields": null, "last_checked": null, "status": "needed: exact parcel layer not yet identified on arlgis.arlingtonva.us" },
+        "zoning": { "url": null, "fields": null, "last_checked": null, "status": "needed" },
+        "rpa": { "url": null, "fields": null, "last_checked": null, "status": "needed: RPA layers referenced in a public map service but exact layer not identified" }
+      },
+      "constraint_layers": ["resource_protection_area", "floodplain", "steep_slope"]
+    },
+    {
+      "slug": "fairfax-va",
+      "name": "Fairfax County, VA",
+      "ruleTable": "rules/fairfax-va.json",
+      "verified": false,
+      "ordinance": {
+        "name": "Fairfax County Zoning Ordinance (zMOD)",
+        "effective_date": "2021-07-01",
+        "annotated": "2021-03",
+        "source_pdf": "docs/sources/fairfax-zmod-2021.pdf",
+        "status": "PDF not yet supplied to repo; predates later amendments, confirm against current code; see docs/sources/README.md"
+      },
+      "endpoints": {
+        "parcels": { "url": null, "fields": ["PIN", "PARCEL_TYPE"], "last_checked": "2026-10-30", "status": "confirmed readable (OpenData layer 0); URL to be recorded when wired" },
+        "zoning": { "url": null, "fields": ["ZONECODE", "ZONETYPE", "PROFFER", "JURISDICTION"], "last_checked": "2026-10-30", "status": "confirmed readable (OpenData layer 1); also covers Towns of Vienna and Herndon" },
+        "rpa": { "url": null, "fields": ["effective_date"], "last_checked": "2026-10-30", "status": "confirmed readable (PLUS SiteMap layer 7); ordinance text controls if map conflicts" }
+      },
+      "constraint_layers": ["resource_protection_area", "floodplain"],
+      "notes": "Floodplain not in OpenData; use FEMA national layer and look for a county floodplain layer."
+    }
+  ]
+}
