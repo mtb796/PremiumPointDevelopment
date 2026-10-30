@@ -16,6 +16,7 @@ import { forward12Noi, stabilizedNoiYear1 as computeStabilizedNoi } from "./prof
 import { NonConvergenceError, solveTotalCost } from "./solve.js";
 import { simulateStack, type StackContext } from "./debt/stack.js";
 import { runWaterfall } from "./waterfall/waterfall.js";
+import { componentBreakdown } from "./proforma/components.js";
 
 export function runDeal(deal: Deal): Result {
   const flags: Flag[] = [];
@@ -140,6 +141,7 @@ export function runDeal(deal: Deal): Result {
   return {
     monthly: sim.rows,
     tranches: sim.tranches,
+    components: componentBreakdown(deal).components,
     sourcesUses,
     costSummary: {
       land: nf.land,

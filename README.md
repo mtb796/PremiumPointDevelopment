@@ -30,6 +30,11 @@ handoff. Current state:
   takeout; the configurable distribution waterfall (tiers, GP catch-up, clawback);
   the modular override comparison; and a hand-built structured reference deal whose
   project IRR is checked against an independent reconstruction.
+- **Mixed-use, phasing & scenarios (Saturday morning):** component-level NOI and
+  value reporting (component NOI sums to total); shared-cost allocation across
+  phases (by GFA or custom %); and ARGUS-class sensitivity — a tornado ranked by
+  effect on levered IRR, base/downside/upside scenarios, two-way what-if grids,
+  breakevens, and **residual land value**. One engine run is well under 50 ms.
 
 Engine tests: pro forma, senior debt, waterfall, multi-tranche stack, edge cases
 (preferred on/off, PIK vs current-pay mezz, no mezz, zero promote), the balloon

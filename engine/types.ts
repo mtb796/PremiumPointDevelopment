@@ -56,6 +56,20 @@ export interface ProgramComponent {
   ancillaryIncomePerYear?: Money;
   /** Commercial rent, $ per leasable SF per year, year-0 dollars (retail/office only). */
   commercialRentPsfPerYear?: Money;
+  /** Optional per-component exit cap rate (mixed-use); falls back to the deal exit cap. */
+  exitCapRate?: Rate;
+  /** Optional commercial leasing terms (retail/office). */
+  leasing?: CommercialLeasing;
+}
+
+/** Commercial leasing terms (handoff: mixed-use module). */
+export interface CommercialLeasing {
+  leaseType: "NNN" | "modified-gross" | "gross";
+  freeRentMonths?: number;
+  tiAllowancePsf?: Money; // tenant improvement allowance, $/leasable SF
+  leasingCommissionPct?: Pct; // of lease value
+  downtimeMonths?: number; // between leases
+  renewalProbability?: Pct;
 }
 
 // ---------------------------------------------------------------------------
@@ -392,9 +406,20 @@ export interface TrancheResult {
   takeout?: { month: Month; size: Money; shortfall: Money };
 }
 
+export interface ComponentSummary {
+  label: string;
+  kind: string;
+  netSf: Sf;
+  grossSf: Sf;
+  stabilizedNoi: Money;
+  value: Money;
+}
+
 export interface Result {
   monthly: MonthlyRow[];
   tranches: TrancheResult[];
+  /** Per-component stabilized NOI and value (mixed-use). Sums to the total. */
+  components: ComponentSummary[];
   sourcesUses: SourcesUses;
   costSummary: {
     land: Money;
