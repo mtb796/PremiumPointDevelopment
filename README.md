@@ -35,6 +35,10 @@ handoff. Current state:
   phases (by GFA or custom %); and ARGUS-class sensitivity — a tornado ranked by
   effect on levered IRR, base/downside/upside scenarios, two-way what-if grids,
   breakevens, and **residual land value**. One engine run is well under 50 ms.
+- **Project tracker (brought forward):** milestones with dependencies, the
+  critical path by CPM (earliest/latest/slack), slip alerts, and the link that
+  maps anchor milestones onto the pro forma schedule — so moving a milestone
+  re-runs the model and the IRR change matches a manual rerun.
 
 Engine tests: pro forma, senior debt, waterfall, multi-tranche stack, edge cases
 (preferred on/off, PIK vs current-pay mezz, no mezz, zero promote), the balloon
