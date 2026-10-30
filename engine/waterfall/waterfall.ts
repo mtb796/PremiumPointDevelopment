@@ -86,8 +86,8 @@ export function runWaterfall(input: WaterfallInput): WaterfallOutput {
 
     // Contributions: LP and GP co-invest fund pro rata.
     if (C > 0) {
-      lp[t] -= lpShare * C;
-      gp[t] -= gpCoinvestPct * C;
+      lp[t] = (lp[t] ?? 0) - lpShare * C;
+      gp[t] = (gp[t] ?? 0) - gpCoinvestPct * C;
       cumContrib += C;
     }
 
@@ -151,8 +151,8 @@ export function runWaterfall(input: WaterfallInput): WaterfallOutput {
     lpDistributions[t] = lpDist;
     gpDistributions[t] = gpDist;
     promote[t] = promoteThisPeriod;
-    lp[t] += lpDist;
-    gp[t] += gpDist;
+    lp[t] = (lp[t] ?? 0) + lpDist;
+    gp[t] = (gp[t] ?? 0) + gpDist;
 
     // The residual (last) tier consumes all remaining cash, so each period's payments
     // sum to the distributable cash (within the hurdle tolerance for a stub < 1e-6).
@@ -166,13 +166,13 @@ export function runWaterfall(input: WaterfallInput): WaterfallOutput {
     const totalProfit = cumInvestorDist + cumPromote - cumContrib;
     const target = p * totalProfit;
     const excess = cumPromote - target;
-    if (excess > HURDLE_TOL) {
+    if (excess > HURDLE_TOL && n > 0) {
       const last = n - 1;
-      gp[last] -= excess;
-      lp[last] += excess;
-      gpDistributions[last] -= excess;
-      lpDistributions[last] += excess;
-      promote[last] -= excess;
+      gp[last] = (gp[last] ?? 0) - excess;
+      lp[last] = (lp[last] ?? 0) + excess;
+      gpDistributions[last] = (gpDistributions[last] ?? 0) - excess;
+      lpDistributions[last] = (lpDistributions[last] ?? 0) + excess;
+      promote[last] = (promote[last] ?? 0) - excess;
       cumPromote -= excess;
     }
   }
